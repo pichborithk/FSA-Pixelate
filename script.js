@@ -3,6 +3,7 @@ let inputRowNumber = document.querySelector('#input-row-number');
 const addBtn = document.querySelector('#add-row');
 const selectColor = document.querySelector('select');
 let color = 'red';
+let isMouseDown = false;
 
 function makeRow() {
   let rowNumber = inputRowNumber.value;
@@ -16,7 +17,8 @@ function makeRow() {
 }
 
 function colorize(event) {
-  event.target.classList.toggle(color);
+  // event.target.classList.toggle(color);
+  event.target.classList.add(color);
 }
 
 function colorChoose(event) {
@@ -90,6 +92,20 @@ makeRow();
 // changeRowNumber2();
 
 addBtn.addEventListener('click', makeRow);
+
+table.addEventListener('mousedown', () => {
+  isMouseDown = true;
+});
+
+table.addEventListener('mouseup', () => {
+  isMouseDown = false;
+});
+
+table.addEventListener('mouseover', (event) => {
+  if (isMouseDown) {
+    colorize(event);
+  }
+});
 
 table.addEventListener('click', colorize);
 
