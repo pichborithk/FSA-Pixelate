@@ -1,6 +1,5 @@
 const table = document.querySelector('table');
 let inputRowNumber = document.querySelector('#input-row-number');
-// let rowNumber = inputRowNumber.value;
 const addBtn = document.querySelector('#add-row');
 const selectColor = document.querySelector('select');
 let color = 'red';
@@ -9,8 +8,8 @@ function makeRow() {
   let rowNumber = inputRowNumber.value;
   const tableRow = document.createElement('tr');
   while (rowNumber > 0) {
-    let tableData = document.createElement('td');
-    tableRow.appendChild(tableData);
+    const td = document.createElement('td');
+    tableRow.appendChild(td);
     rowNumber--;
   }
   table.appendChild(tableRow);
@@ -22,7 +21,37 @@ function colorize(event) {
 
 function colorChoose(event) {
   color = event.target.value;
-  // console.log(color);
+}
+
+function increaseRowNumber(tablesRow) {
+  tablesRow.forEach((row) => {
+    const td = document.createElement('td');
+    row.appendChild(td);
+  });
+}
+
+function decreaseRowNumber(tablesRow) {
+  tablesRow.forEach((row) => {
+    row.removeChild(row.lastChild);
+  });
+}
+
+function changeRowNumber2() {
+  const currentTablesRow = document.querySelectorAll('tr');
+  if (!currentTablesRow) {
+    return;
+  }
+  let rowNumber = inputRowNumber.value;
+  let currentRowNumber = currentTablesRow[0].children.length;
+  // use while loop to compare rowNumber and currentRowNumber like this it makes us write less code because we don't need use if
+  while (rowNumber > currentRowNumber) {
+    increaseRowNumber(currentTablesRow);
+    rowNumber--;
+  }
+  while (rowNumber < currentRowNumber) {
+    decreaseRowNumber(currentTablesRow);
+    rowNumber++;
+  }
 }
 
 function changeRowNumber() {
@@ -58,6 +87,7 @@ function changeRowNumber() {
 
 makeRow();
 makeRow();
+// changeRowNumber2();
 
 addBtn.addEventListener('click', makeRow);
 
@@ -65,4 +95,4 @@ table.addEventListener('click', colorize);
 
 selectColor.addEventListener('change', colorChoose);
 
-inputRowNumber.addEventListener('change', changeRowNumber);
+inputRowNumber.addEventListener('change', changeRowNumber2);
