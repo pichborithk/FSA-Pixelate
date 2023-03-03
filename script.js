@@ -46,7 +46,10 @@ inputRowNumber.addEventListener("change", changeRowNumber);
 
 function changeRowNumber() {
   const currentTr = document.querySelectorAll("tr");
-  rowNumber = inputRowNumber.value;
+  //Added if statement so that if player manualy entered a number higher than 20, 20 would still remain as the max value of columns
+  if (inputRowNumber.value <= 20) {
+    rowNumber = inputRowNumber.value;
+  } else rowNumber = 20;
   let previousRowCount = currentTr[0].children.length;
   //if adding columns
   if (rowNumber > previousRowCount) {
