@@ -1,28 +1,21 @@
 // Your code here
-const table = document.querySelector("table");
-let inputRowNumber = document.querySelector("#input-row-number");
-let rowNumber = inputRowNumber.value;
-
-const addBtn = document.querySelector("#add-row");
-let tr;
-
-function addTd(num) {
-  tr = document.createElement("tr");
-  while (num > 0) {
-    let td = document.createElement("td");
-    tr.appendChild(td);
-    num--;
-  }
-  return tr;
-}
+const table = document.querySelector('table');
+let inputRowNumber = document.querySelector('#input-row-number');
+// let rowNumber = inputRowNumber.value;
+const addBtn = document.querySelector('#add-row');
 
 function makeRow() {
-  table.appendChild(addTd(rowNumber));
-
-  //   addTd(rowNumber);
+  let rowNumber = inputRowNumber.value;
+  const tableRow = document.createElement('tr');
+  while (rowNumber > 0) {
+    let tableData = document.createElement('td');
+    tableRow.appendChild(tableData);
+    rowNumber--;
+  }
+  table.appendChild(tableRow);
 }
 
-addBtn.addEventListener("click", makeRow);
+addBtn.addEventListener('click', makeRow);
 makeRow();
 makeRow();
 
@@ -30,23 +23,23 @@ function colorize(e) {
   e.target.classList.toggle(color);
 }
 
-table.addEventListener("click", colorize);
+table.addEventListener('click', colorize);
 
-let selectColor = document.querySelector("select");
-let color = "red";
+let selectColor = document.querySelector('select');
+let color = 'red';
 
 function colorChoose(e) {
   color = e.target.value;
   console.log(color);
 }
 
-selectColor.addEventListener("change", colorChoose);
+selectColor.addEventListener('change', colorChoose);
 
-inputRowNumber.addEventListener("change", changeRowNumber);
+inputRowNumber.addEventListener('change', changeRowNumber);
 
 function changeRowNumber() {
-  const currentTr = document.querySelectorAll("tr");
-  //Added if statement so that if player manualy entered a number higher than 20, 20 would still remain as the max value of columns
+  const currentTr = document.querySelectorAll('tr');
+  //Added if statement so that if player manually entered a number higher than 20, 20 would still remain as the max value of columns
   if (inputRowNumber.value <= 20) {
     rowNumber = inputRowNumber.value;
   } else rowNumber = 20;
@@ -56,7 +49,7 @@ function changeRowNumber() {
     let numberAdded = rowNumber - previousRowCount;
     for (row of currentTr) {
       for (let i = 0; i < numberAdded; i++) {
-        let td = document.createElement("td");
+        let td = document.createElement('td');
         row.appendChild(td);
       }
     }
