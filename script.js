@@ -1,7 +1,8 @@
 const table = document.querySelector('table');
-let inputRowNumber = document.querySelector('#input-row-number');
+const inputRowNumber = document.querySelector('#input-row-number');
 const addBtn = document.querySelector('#add-row');
 const selectColor = document.querySelector('select');
+const paintAllBtn = document.querySelector('#paint-all');
 let color = 'red';
 let isMouseDown = false;
 
@@ -87,9 +88,13 @@ function changeRowNumber() {
   }
 }
 
+function paintAll() {
+  const allTd = document.querySelectorAll('td');
+  allTd.forEach((td) => td.classList.add(color));
+}
+
 makeRow();
 makeRow();
-// changeRowNumber2();
 
 addBtn.addEventListener('click', makeRow);
 
@@ -112,3 +117,5 @@ table.addEventListener('click', colorize);
 selectColor.addEventListener('change', colorChoose);
 
 inputRowNumber.addEventListener('change', changeRowNumber2);
+
+paintAllBtn.addEventListener('click', paintAll);
