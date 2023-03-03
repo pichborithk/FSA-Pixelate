@@ -32,3 +32,9 @@ td.blue {
 td.green {
   background-color: green;
 }
+
+input {
+  /* background-color: lightgrey; */
+  width: 50px;
+  background-color: #efefef;
+}
