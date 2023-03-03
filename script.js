@@ -1,8 +1,9 @@
-// Your code here
 const table = document.querySelector('table');
 let inputRowNumber = document.querySelector('#input-row-number');
 // let rowNumber = inputRowNumber.value;
 const addBtn = document.querySelector('#add-row');
+const selectColor = document.querySelector('select');
+let color = 'red';
 
 function makeRow() {
   let rowNumber = inputRowNumber.value;
@@ -15,27 +16,14 @@ function makeRow() {
   table.appendChild(tableRow);
 }
 
-addBtn.addEventListener('click', makeRow);
-makeRow();
-makeRow();
-
-function colorize(e) {
-  e.target.classList.toggle(color);
+function colorize(event) {
+  event.target.classList.toggle(color);
 }
 
-table.addEventListener('click', colorize);
-
-let selectColor = document.querySelector('select');
-let color = 'red';
-
-function colorChoose(e) {
-  color = e.target.value;
-  console.log(color);
+function colorChoose(event) {
+  color = event.target.value;
+  // console.log(color);
 }
-
-selectColor.addEventListener('change', colorChoose);
-
-inputRowNumber.addEventListener('change', changeRowNumber);
 
 function changeRowNumber() {
   const currentTr = document.querySelectorAll('tr');
@@ -67,3 +55,14 @@ function changeRowNumber() {
     //   console.log(rowNumber);
   }
 }
+
+makeRow();
+makeRow();
+
+addBtn.addEventListener('click', makeRow);
+
+table.addEventListener('click', colorize);
+
+selectColor.addEventListener('change', colorChoose);
+
+inputRowNumber.addEventListener('change', changeRowNumber);
