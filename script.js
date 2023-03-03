@@ -3,6 +3,7 @@ const inputRowNumber = document.querySelector('#input-row-number');
 const addBtn = document.querySelector('#add-row');
 const selectColor = document.querySelector('select');
 const paintAllBtn = document.querySelector('#paint-all');
+const fillAllBtn = document.querySelector('#fill-all');
 const clearBtn = document.querySelector('#clear');
 let color = 'red';
 let isMouseDown = false;
@@ -94,6 +95,15 @@ function paintAll() {
   allTd.forEach((td) => td.classList.add(color));
 }
 
+function fillAll() {
+  const allTd = document.querySelectorAll('td');
+  allTd.forEach((td) => {
+    if (!td.className) {
+      td.classList.add(color);
+    }
+  });
+}
+
 function clearAll() {
   const allTd = document.querySelectorAll('td');
   allTd.forEach((td) => (td.className = ''));
@@ -125,5 +135,7 @@ selectColor.addEventListener('change', colorChoose);
 inputRowNumber.addEventListener('change', changeRowNumber2);
 
 paintAllBtn.addEventListener('click', paintAll);
+
+fillAllBtn.addEventListener('click', fillAll);
 
 clearBtn.addEventListener('click', clearAll);
