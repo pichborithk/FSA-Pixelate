@@ -21,6 +21,7 @@ function makeRow() {
 
 function colorize(event) {
   // event.target.classList.toggle(color);
+  event.target.className = '';
   event.target.classList.add(color);
 }
 
@@ -88,7 +89,8 @@ makeRow();
 
 addBtn.addEventListener('click', makeRow);
 
-table.addEventListener('mousedown', () => {
+table.addEventListener('mousedown', (event) => {
+  colorize(event);
   isMouseDown = true;
 });
 
