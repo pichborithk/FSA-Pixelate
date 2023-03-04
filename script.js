@@ -1,8 +1,12 @@
 const table = document.querySelector('table');
-let inputRowNumber = document.querySelector('#input-row-number');
+const inputRowNumber = document.querySelector('#input-row-number');
 const addBtn = document.querySelector('#add-row');
 const selectColor = document.querySelector('select');
+const paintAllBtn = document.querySelector('#paint-all');
+const fillAllBtn = document.querySelector('#fill-all');
+const clearBtn = document.querySelector('#clear');
 let color = 'red';
+let isMouseDown = false;
 
 function makeRow() {
   let rowNumber = inputRowNumber.value;
@@ -16,7 +20,8 @@ function makeRow() {
 }
 
 function colorize(event) {
-  event.target.classList.toggle(color);
+  // event.target.classList.toggle(color);
+  event.target.classList.add(color);
 }
 
 function colorChoose(event) {
@@ -85,14 +90,52 @@ function changeRowNumber() {
   }
 }
 
+function paintAll() {
+  const allTd = document.querySelectorAll('td');
+  allTd.forEach((td) => td.classList.add(color));
+}
+
+function fillAll() {
+  const allTd = document.querySelectorAll('td');
+  allTd.forEach((td) => {
+    if (!td.className) {
+      td.classList.add(color);
+    }
+  });
+}
+
+function clearAll() {
+  const allTd = document.querySelectorAll('td');
+  allTd.forEach((td) => (td.className = ''));
+}
+
 makeRow();
 makeRow();
-// changeRowNumber2();
 
 addBtn.addEventListener('click', makeRow);
+
+table.addEventListener('mousedown', () => {
+  isMouseDown = true;
+});
+
+table.addEventListener('mouseup', () => {
+  isMouseDown = false;
+});
+
+table.addEventListener('mouseover', (event) => {
+  if (isMouseDown) {
+    colorize(event);
+  }
+});
 
 table.addEventListener('click', colorize);
 
 selectColor.addEventListener('change', colorChoose);
 
 inputRowNumber.addEventListener('change', changeRowNumber2);
+
+paintAllBtn.addEventListener('click', paintAll);
+
+fillAllBtn.addEventListener('click', fillAll);
+
+clearBtn.addEventListener('click', clearAll);

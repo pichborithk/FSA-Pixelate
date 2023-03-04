@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: "Press Start 2P", cursive;
+  font-family: 'Press Start 2P', cursive;
 }
 
 html {
@@ -34,7 +34,6 @@ td.green {
 }
 
 input {
-  /* background-color: lightgrey; */
   width: 50px;
   background-color: #efefef;
 }
