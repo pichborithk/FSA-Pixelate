@@ -43,7 +43,7 @@ function decreaseRowNumber(tablesRow) {
 
 function changeRowNumber() {
   const currentTablesRow = document.querySelectorAll('tr');
-  let rowNumber = inputRowNumber <= 20 ? inputRowNumber : 20;
+  let rowNumber = inputRowNumber.value <= 20 ? inputRowNumber.value : 20;
   if (!currentTablesRow) {
     return;
   }
