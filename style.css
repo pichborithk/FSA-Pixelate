@@ -33,6 +33,18 @@ td.green {
   background-color: green;
 }
 
+td.pink {
+  background-color: pink;
+}
+
+td.orange {
+  background-color: orange;
+}
+
+td.purple {
+  background-color: purple;
+}
+
 input {
   width: 50px;
   background-color: #efefef;

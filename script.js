@@ -7,6 +7,7 @@ const fillAllBtn = document.querySelector('#fill-all');
 const clearBtn = document.querySelector('#clear');
 let color = 'red';
 let isMouseDown = false;
+let eraserMode = false;
 
 function makeRow() {
   let rowNumber = inputRowNumber.value;
@@ -20,9 +21,14 @@ function makeRow() {
 }
 
 function colorize(event) {
-  // event.target.classList.toggle(color);
-  event.target.className = '';
-  event.target.classList.add(color);
+  if (color === 'eraser') {
+    event.target.className = '';
+  } else if (event.target.classList.value === color) {
+    event.target.className = '';
+  } else {
+    event.target.className = '';
+    event.target.classList.add(color);
+  }
 }
 
 function colorChoose(event) {
@@ -48,11 +54,6 @@ function changeRowNumber() {
   if (!currentTablesRow) {
     return;
   }
-  // if (inputRowNumber.value <= 20) {
-  //   rowNumber = inputRowNumber.value;
-  // } else {
-  //   rowNumber = 20;
-  // }
   let currentRowNumber = currentTablesRow[0].children.length;
   // use while loop to compare rowNumber and currentRowNumber like this it makes us write less code because we don't need use if
   while (rowNumber > currentRowNumber) {
@@ -67,13 +68,16 @@ function changeRowNumber() {
 
 function paintAll() {
   const allTd = document.querySelectorAll('td');
+  //Set class "no class" before assigning new class color
+  //This will allow classes that would have been otherwise overruled by specificity to replace the existing class
+  allTd.forEach((td) => (td.className = ''));
   allTd.forEach((td) => td.classList.add(color));
 }
 
 function fillAll() {
   const allTd = document.querySelectorAll('td');
   allTd.forEach((td) => {
-    if (!td.className) {
+    if (!td.className || td.className === 'eraser') {
       td.classList.add(color);
     }
   });
@@ -86,25 +90,38 @@ function clearAll() {
 
 makeRow();
 makeRow();
+makeRow();
+makeRow();
+makeRow();
 
 addBtn.addEventListener('click', makeRow);
 
 table.addEventListener('mousedown', (event) => {
-  colorize(event);
+  if (event.target.className === color) {
+    eraserMode = true;
+  }
   isMouseDown = true;
 });
 
 table.addEventListener('mouseup', () => {
   isMouseDown = false;
+  eraserMode = false;
 });
 
 table.addEventListener('mouseover', (event) => {
-  if (isMouseDown) {
+  if (isMouseDown && event.target.classList.value !== color && !eraserMode) {
     colorize(event);
+  } else if (
+    isMouseDown &&
+    event.target.classList.value === color &&
+    eraserMode
+  ) {
+    event.target.className = '';
   }
 });
 
-table.addEventListener('click', colorize);
+//Changed click event to mousdeown event, and removed colorize from mousedown function. This allows us to reclick colors to deselect that color, while still letting the drag to paint function work
+table.addEventListener('mousedown', colorize);
 
 selectColor.addEventListener('change', colorChoose);
 
