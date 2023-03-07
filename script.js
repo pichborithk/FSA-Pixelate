@@ -70,8 +70,7 @@ function paintAll() {
   const allTd = document.querySelectorAll('td');
   //Set class "no class" before assigning new class color
   //This will allow classes that would have been otherwise overruled by specificity to replace the existing class
-  allTd.forEach((td) => (td.className = ''));
-  allTd.forEach((td) => td.classList.add(color));
+  allTd.forEach((td) => (td.className = color));
 }
 
 function fillAll() {
